@@ -13,55 +13,56 @@ public class Shooting : MonoBehaviour
     public float bulletSpeed;
 
     // Gun stats
-    public float timeBetweenShots;
+    public float blueTimeBetweenShots;
+    public float orangeTimeBetweenShots;
 
     // Bools
-    bool readyToShoot;
+    public bool blueReadyToShoot;
+    public bool orangeReadyToShoot;
 
     // References
     public Camera fppCam;
     public Transform attackPoint;
 
     // variables
-    float time;
-
-    public PlayerInput inputActions;
-
-    private void Awake()
-    {
-        inputActions = new PlayerInput();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float blueTime;
+    public float orangeTime;
+    //public int bluePortalCount = 0;
+    //public int orangePortalCount = 0;
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        if (time > timeBetweenShots)
+        blueTime += Time.deltaTime;
+        orangeTime += Time.deltaTime;
+
+        if (blueTime >= blueTimeBetweenShots)
         {
-            readyToShoot = true;
+            blueReadyToShoot = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && readyToShoot)
+        if (orangeTime >= orangeTimeBetweenShots)
+        {
+            orangeReadyToShoot = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && blueReadyToShoot)
         {
             Shoot(blueBullet);
+            blueReadyToShoot = false;
+            blueTime = 0;
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse1) && readyToShoot)
+        
+        if (Input.GetKeyDown(KeyCode.Mouse1) && orangeReadyToShoot)
         {
             Shoot(orangeBullet);
+            orangeReadyToShoot = false;
+            orangeTime = 0;
         }
     }
 
     void Shoot(GameObject bullet)
     {
-        readyToShoot = false;
-        time = 0;
-
         // Find the exact hit position using raycast
         Ray ray = fppCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
