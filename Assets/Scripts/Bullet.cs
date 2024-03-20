@@ -6,9 +6,19 @@ public class Bullet : MonoBehaviour
 {
     float time;
     public GameObject portal;
-    Shooting shooting;
+   // Shooting shooting;
     Vector3 collisionPosition;
-    PortalManager portalManager;
+    //PortalManager portalManager;
+
+    Rigidbody rb;
+    float xVel;
+    float yVel;
+    float zVel;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,24 +29,36 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        collisionPosition = transform.position;
     }
+
+    
 
     void OnCollisionEnter(Collision other)
     {
-        GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.Euler(90f, 0f, 0f));
+        collisionPosition = transform.position;
 
-        if (this.gameObject.CompareTag("Blue"))
+        if (Mathf.Abs(xVel) > Mathf.Abs(yVel) && Mathf.Abs(xVel) > Mathf.Abs(zVel))
         {
-            portalManager.bluePortals.Add(Portal);
+            if (xVel > 0)
+            {
+                GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.Euler(90f, 0f, 0f));
+            }
+
+            else if (xVel < 0)
+            {
+                GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.Euler(90f, 0f, 0f));
+            }
+
         }
 
-        if (this.gameObject.CompareTag("Orange"))
+        else
         {
-            portalManager.orangePortals.Add(Portal);
+            if (yVel > 0)
+            {
+                
+            }
         }
-
+       
         Destroy(gameObject);
     }
 }

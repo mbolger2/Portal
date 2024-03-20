@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Blue
   - Orange
+  - Objective
   layers:
   - Default
   - TransparentFX
