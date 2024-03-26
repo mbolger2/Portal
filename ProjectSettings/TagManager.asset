@@ -7,6 +7,7 @@ TagManager:
   - Blue
   - Orange
   - Objective
+  - Camera
   layers:
   - Default
   - TransparentFX
@@ -14,11 +15,11 @@ TagManager:
   - 
   - Water
   - UI
+  - whatIsPlayer
   - 
   - 
-  - 
-  - 
-  - 
+  - whatIsCamera
+  - whatIsGround
   - 
   - 
   - 
