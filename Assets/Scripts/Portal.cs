@@ -21,11 +21,15 @@ public class Portal : MonoBehaviour
 
         if (other.CompareTag("Player") || other.CompareTag("Objective"))
         {
-            Debug.Log("collided");
-            other.gameObject.SetActive(false);
+            //Debug.Log("collided");
+            other.enabled = false;
             other.transform.position = new Vector3(x, y, z);
-            other.transform.rotation = new Quaternion(0f, otherPortal.rotation.y, 0f, 0f);
-            other.gameObject.SetActive(true);
+            other.transform.rotation = new Quaternion(
+                other.transform.rotation.x, 
+                otherPortal.rotation.y + 180f, 
+                other.transform.rotation.z, 
+                other.transform.rotation.w);
+            other.enabled = true;
         }
     }
 }

@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class PortalManager : MonoBehaviour
 {
-    public List<GameObject> bluePortals = new List<GameObject>();
-    public List<GameObject> orangePortals = new List<GameObject>();
+    public Transform bluePos;
+    public Transform orangePos;
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        if (bluePortals.Count <= 1)
+        if (other.CompareTag("Blue Portal"))
         {
-            HandlePortals(bluePortals);
+            CharacterController charCon = GetComponent<CharacterController>();
+
+            charCon.enabled = false;
+            transform.position = orangePos.transform.position;
+            transform.rotation = new Quaternion(transform.rotation.x, orangePos.rotation.y, transform.rotation.z, transform.rotation.w);
+
+            charCon.enabled = true;
         }
 
-        if (orangePortals.Count <= 1)
-        { 
-            HandlePortals(orangePortals);
-        }
-    }
+        if (other.CompareTag("Orange Portal"))
+        {
+            CharacterController charCon = GetComponent<CharacterController>();
 
-    void HandlePortals(List<GameObject> portals)
-    {
-        portals.RemoveAt(0);
+            charCon.enabled = false;
+            transform.position = bluePos.transform.position;
+            transform.rotation = new Quaternion(transform.rotation.x, bluePos.rotation.y, transform.rotation.z, transform.rotation.w);
+
+            charCon.enabled = true;
+        }
     }
 }

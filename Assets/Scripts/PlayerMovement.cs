@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         if (controller.isGrounded)
         {
             Debug.Log("Grounded");
+            //controller.attachedRigidbody.velocity = new Vector3(0f, -3.5f, 0f);
         }
     }
 
