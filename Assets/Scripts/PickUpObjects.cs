@@ -27,23 +27,34 @@ public class PickUpObjects : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E) && !isPickedUp)
             {
-                objective.transform.position = pickupStaticPosition.position;
-                isPickedUp = true;
-                objective.transform.parent = pickupStaticPosition;
-                //Debug.Log("Picked Up");
-                objective.GetComponent<Rigidbody>().isKinematic = true;
-                //objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-                //objective.GetComponent<Rigidbody>().useGravity = false;
+                PickUp();
             }
         }
 
         if (Input.GetKey(KeyCode.Q) && isPickedUp)
         {
-            isPickedUp = false;
-            objective.GetComponent<Rigidbody>().isKinematic = false;
-            //objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            objective.transform.parent = null;
+            SetDown();
         }
+    }
+
+    void PickUp()
+    {
+        objective.transform.position = pickupStaticPosition.position;
+        isPickedUp = true;
+        objective.transform.parent = pickupStaticPosition;
+        //Debug.Log("Picked Up");
+        objective.GetComponent<Rigidbody>().isKinematic = true;
+        //objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        //objective.GetComponent<Rigidbody>().useGravity = false;
+
+    }
+
+    void SetDown()
+    {
+        isPickedUp = false;
+        objective.GetComponent<Rigidbody>().isKinematic = false;
+        //objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        objective.transform.parent = null;
     }
 
     void OnTriggerEnter(Collider other)
