@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovementRb : MonoBehaviour
 {
+    public PlayerMovementRb instance;
+
     [Header("Movement")]
     public float moveSpeed;
 
@@ -37,6 +39,8 @@ public class PlayerMovementRb : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+
+        instance = this;
     }
 
     // Update is called once per frame

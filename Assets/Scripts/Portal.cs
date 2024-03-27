@@ -5,17 +5,16 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     public Transform otherPortal;
-    public Transform playerOut;
-    public Transform orientation;
+    public GameObject playerOut;
+    //public GameObject player;
+    //public GameObject orientation;
     public GameObject playerCamera;
     public GameObject cameraPos;
 
+    public PlayerMovementRb pMRB;
+
     void OnTriggerEnter(Collider other)
     {
-        float x = playerOut.transform.position.x;
-        float y = playerOut.transform.position.y;
-        float z = playerOut.transform.position.z;
-
         if (other.CompareTag("Player"))
         {
             //Debug.Log("collided");
@@ -23,9 +22,14 @@ public class Portal : MonoBehaviour
             playerCamera.SetActive(false);
             //Cursor.lockState = CursorLockMode.None;
 
-            other.transform.position = new Vector3(x, y, z);
+            PlayerMovementRb playerRB = other.gameObject.GetComponent<PlayerMovementRb>();
+
+
+
+            other.transform.position = playerOut.transform.position;
             playerCamera.transform.position = cameraPos.transform.position;
-            orientation.rotation = playerOut.transform.rotation;
+
+            playerRB.transform.rotation = transform.rotation;
             //playerCamera.transform.rotation = playerOut.transform.rotation;
 
             other.gameObject.SetActive(true);
@@ -36,7 +40,7 @@ public class Portal : MonoBehaviour
         if (other.CompareTag("Objective"))
         {
             other.enabled = false;
-            other.transform.position = new Vector3(x, y, z);
+            other.transform.position = playerOut.transform.position;
             other.transform.rotation = new Quaternion(
                 other.transform.rotation.x,
                 otherPortal.rotation.y + 180f,
