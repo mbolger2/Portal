@@ -37,27 +37,7 @@ public class Bullet : MonoBehaviour
     {
         collisionPosition = transform.position;
 
-        if (Mathf.Abs(xVel) > Mathf.Abs(yVel) && Mathf.Abs(xVel) > Mathf.Abs(zVel))
-        {
-            if (xVel > 0)
-            {
-                GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.Euler(90f, 0f, 0f));
-            }
-
-            else if (xVel < 0)
-            {
-                GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.Euler(90f, 0f, 0f));
-            }
-
-        }
-
-        else
-        {
-            if (yVel > 0)
-            {
-                
-            }
-        }
+        GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.identity);
        
         Destroy(gameObject);
     }

@@ -22,6 +22,7 @@ public class PickUpObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (canPickUp)
         {
             if (Input.GetKey(KeyCode.E) && !isPickedUp)
@@ -29,7 +30,7 @@ public class PickUpObjects : MonoBehaviour
                 objective.transform.position = pickupStaticPosition.position;
                 isPickedUp = true;
                 objective.transform.parent = pickupStaticPosition;
-                Debug.Log("Picked Up");
+                //Debug.Log("Picked Up");
                 objective.GetComponent<Rigidbody>().isKinematic = true;
                 //objective.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
                 //objective.GetComponent<Rigidbody>().useGravity = false;

@@ -79,6 +79,9 @@ public class Shooting : MonoBehaviour
 
         // Instantiate and orient projectile
         GameObject Bullet_Clone = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        Bullet_Clone.transform.forward = direction.normalized;
+
+        // Adds force to the bullet
         Bullet_Clone.GetComponent<Rigidbody>().AddForce(direction.normalized * bulletSpeed, ForceMode.Impulse);
     }
 }
