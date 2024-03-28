@@ -41,6 +41,8 @@ public class Portal : MonoBehaviour
         {
             other.enabled = false;
             other.transform.position = playerOut.transform.position;
+
+            //other.GetComponent<Rigidbody>().velocity ;
             other.transform.rotation = new Quaternion(
                 other.transform.rotation.x,
                 otherPortal.rotation.y + 180f,
