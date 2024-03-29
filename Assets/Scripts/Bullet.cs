@@ -4,41 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float time;
-    public GameObject portal;
-   // Shooting shooting;
-    Vector3 collisionPosition;
-    //PortalManager portalManager;
+    [SerializeField] GameObject portal;
+    float lifeTime = 3f;
 
-    Rigidbody rb;
-    float xVel;
-    float yVel;
-    float zVel;
-
-    void Start()
+    void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        Destroy(gameObject, lifeTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        time += Time.deltaTime;
-
-        if (time > 3f)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    
-
-    void OnCollisionEnter(Collision other)
-    {
-        collisionPosition = transform.position;
-
-        GameObject Portal = Instantiate(portal, collisionPosition, Quaternion.identity);
-       
+        var Portal = Instantiate(portal, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

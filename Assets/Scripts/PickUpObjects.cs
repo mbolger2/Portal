@@ -7,7 +7,7 @@ public class PickUpObjects : MonoBehaviour
     bool canPickUp;
     bool isPickedUp;
 
-    public GameObject objective;
+    GameObject objective;
     Rigidbody rb;
     public Transform pickupStaticPosition;
 
