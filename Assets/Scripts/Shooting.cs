@@ -14,10 +14,12 @@ public class Shooting : MonoBehaviour
 
     [SerializeField] float blueTimeBetweenShots;
     [SerializeField] float orangeTimeBetweenShots;
+    [SerializeField] float timeBetweenShots;
 
     // Bools
     public bool blueReadyToShoot;
     public bool orangeReadyToShoot;
+    
 
     // References
     public Transform attackPoint;
