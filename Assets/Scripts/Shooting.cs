@@ -27,7 +27,13 @@ public class Shooting : MonoBehaviour
     // variables
     float blueTime;
     float orangeTime;
-    
+
+    // Teleport variables
+    static public bool tp = true;
+    static public int portalCount = 0;
+
+    public GameObject portal;
+    static public GameObject portalStatic;
 
     // Update is called once per frame
     void Update()

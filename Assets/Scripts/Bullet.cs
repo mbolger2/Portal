@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] GameObject portal;
+    //[SerializeField] GameObject portal;
+    [SerializeField] Material blueMat;
+    [SerializeField] Material orangeMat;
+    string portalTag;
     float lifeTime = 3f;
 
     void Awake()
@@ -14,7 +17,40 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        var Portal = Instantiate(portal, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        if (!collision.collider.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+
+        if (this.gameObject.CompareTag("Blue"))
+        {
+            Shooting.portalStatic.GetComponentInChildren<MeshRenderer>().material = blueMat;
+            portalTag = "Blue";
+        }
+
+        if (this.gameObject.CompareTag("Orange"))
+        {
+            Shooting.portalStatic.GetComponentInChildren<MeshRenderer>().material = orangeMat;
+            portalTag = "Orange";
+        }
+
+        Shooting.portalCount += 1;
+        GameObject portalClone = Instantiate(Shooting.portalStatic, collision.collider.transform);
+        portalClone.tag = portalTag;
+
+        if (portalClone.CompareTag("Blue"))
+        {
+            portalClone.GetComponentInChildren<MeshRenderer>().material = blueMat;
+        }
+
+        else if (portalClone.CompareTag("Orange"))
+        {
+            portalClone.GetComponentInChildren<MeshRenderer>().material = orangeMat;
+        }
+        //var Portal = Instantiate(portal, transform.position, Quaternion.identity);
+        
+
     }
+
+    
 }

@@ -127,4 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d003b78be3962444eb67f640362af1e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portal: {fileID: 6556748420515658179, guid: 7f05ac38d5e5287449d376f25e0770e7, type: 3}
+  blueMat: {fileID: 2100000, guid: fc53e3e51f306934bb24551e490d4f69, type: 2}
+  orangeMat: {fileID: 2100000, guid: 2fe314be10234b4408e15b646899fb2a, type: 2}
