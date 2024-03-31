@@ -24430,6 +24430,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2921761890390598254, guid: 8e6262dea4916f941b416e02b6da6048, type: 3}
+      propertyPath: portal
+      value: 
+      objectReference: {fileID: 5943513976744755688, guid: 816ccd1e315b2314bb2c7968311e5cc8, type: 3}
+    - target: {fileID: 2921761890390598254, guid: 8e6262dea4916f941b416e02b6da6048, type: 3}
       propertyPath: bulletSpeed
       value: 10
       objectReference: {fileID: 0}
