@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalTeleport : MonoBehaviour
+public class PortalV2 : MonoBehaviour
 {
     [Header("Teleporting Information")]
     [Tooltip("The portal that the player wants to teleport to")]
@@ -16,4 +16,5 @@ public class PortalTeleport : MonoBehaviour
             other.transform.forward = otherPortalTPPoint.transform.forward;
         }
     }
+
 }

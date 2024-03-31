@@ -17,7 +17,7 @@ public class PlayerMovementRb : MonoBehaviour
     [Range(0f, 100f)]
     [SerializeField] float jumpVelocity;
     float fallMultiplier = 2.5f;
-    float lowJumpMultiplier = 2f;
+    float lowJumpMultiplier = 1.5f;
 
 
     [Header("Keybinds")]

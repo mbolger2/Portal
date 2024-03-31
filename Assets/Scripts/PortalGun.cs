@@ -24,13 +24,16 @@ public class PortalGun : MonoBehaviour
 
     [Header("Portal Information")]
     [Tooltip("The prefab of the portal")]
-    [SerializeField] GameObject portal;
-    [Tooltip("The portal prefab that is accessible from other scripts")]
-    static public GameObject portalStatic;
-    [SerializeField] GameObject portals;
-    static public GameObject portalsStatic;
-    static public bool tp = true;
-    static public int portalCount;
+    [SerializeField] GameObject portalBlue;
+    [SerializeField] GameObject portalOrange;
+    [Tooltip("The blue portal prefab that is accessible from other scripts")]
+    static public GameObject portalBlueStatic;
+    [Tooltip("The orange portal prefab that is accessible from other scripts")]
+    static public GameObject portalOrangeStatic;
+    //[SerializeField] GameObject portals;
+    //static public GameObject portalsStatic;
+    //static public bool tp = true;
+    //static public int portalCount;
     static public bool one = true;
     
     
@@ -39,8 +42,9 @@ public class PortalGun : MonoBehaviour
     void Start()
     {
         portalGun = gameObject;
-        portalsStatic = portals;
-        portalStatic = portal;
+        //portalsStatic = portals;
+        portalBlueStatic = portalBlue;
+        portalOrangeStatic = portalOrange;
     }
 
     // Update is called once per frame
@@ -49,6 +53,14 @@ public class PortalGun : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isCooldown)
         {
             GameObject cloneBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+            one = true;
+            StartCoroutine(cooldownTimer());
+        }
+        else if (Input.GetMouseButtonDown(1) && !isCooldown)
+        {
+            GameObject cloneBullet = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
+            one = false;
+            StartCoroutine(cooldownTimer());
         }
     }
 
