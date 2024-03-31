@@ -4,53 +4,38 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    //[SerializeField] GameObject portal;
-    [SerializeField] Material blueMat;
-    [SerializeField] Material orangeMat;
-    string portalTag;
+    float bulletSpeed = 50f;
+
     float lifeTime = 3f;
 
-    void Awake()
+    // Update is called once per frame
+    void Update()
     {
+        transform.position += transform.forward * Time.deltaTime * bulletSpeed;
         Destroy(gameObject, lifeTime);
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        PortalGun.portalCount += 1;
+        GameObject clonePortal = Instantiate(PortalGun.portalStatic, transform.position, Quaternion.identity);
+
+        if (PortalGun.one)
+        {
+            clonePortal.tag = "1";
+            PortalGun.one = false;
+        }
+        else
+        {
+            clonePortal.tag = "2";
+            PortalGun.one = true;
+        }
+
+        clonePortal.transform.parent = PortalGun.portalsStatic.transform;
+
         if (!collision.collider.CompareTag("Player"))
         {
             Destroy(gameObject);
         }
-
-        if (this.gameObject.CompareTag("Blue"))
-        {
-            Shooting.portalStatic.GetComponentInChildren<MeshRenderer>().material = blueMat;
-            portalTag = "Blue";
-        }
-
-        if (this.gameObject.CompareTag("Orange"))
-        {
-            Shooting.portalStatic.GetComponentInChildren<MeshRenderer>().material = orangeMat;
-            portalTag = "Orange";
-        }
-
-        Shooting.portalCount += 1;
-        GameObject portalClone = Instantiate(Shooting.portalStatic, collision.collider.transform);
-        portalClone.tag = portalTag;
-
-        if (portalClone.CompareTag("Blue"))
-        {
-            portalClone.GetComponentInChildren<MeshRenderer>().material = blueMat;
-        }
-
-        else if (portalClone.CompareTag("Orange"))
-        {
-            portalClone.GetComponentInChildren<MeshRenderer>().material = orangeMat;
-        }
-        //var Portal = Instantiate(portal, transform.position, Quaternion.identity);
-        
-
     }
-
-    
 }

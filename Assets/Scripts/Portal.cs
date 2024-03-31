@@ -4,47 +4,59 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    float tpCooldown = 1f;
+    int tpCoolDown = 1;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
+    // Update is called once per frame
     void Update()
     {
-        if (Shooting.portalCount > 2 && tag == "Blue")
+        if (PortalGun.portalCount > 2 && tag == "1")
         {
             Destroy(gameObject);
-            Shooting.portalCount -= 1;
+            PortalGun.portalCount -= 1;
         }
-
-        else if (Shooting.portalCount > 2 && tag == "Orange")
+        else if (PortalGun.portalCount > 2 && tag == "2")
         {
             Destroy(gameObject);
-            Shooting.portalCount -= 1;
+            PortalGun.portalCount -= 1;
         }
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "Objective")
+        if (other.tag == "Player" && PortalGun.tp)
         {
             GameObject otherPortal = null;
 
-            for (int i = 0; i < Shooting.portalStatic.transform.childCount; i++)
+            for (int i = 0; i < PortalGun.portalsStatic.transform.childCount; i++)
             {
-                if (tag == "Blue" && Shooting.portalStatic.transform.GetChild(i).tag == "Orange")
+                if (tag == "1" && PortalGun.portalsStatic.transform.GetChild(i).tag == "2")
                 {
-                    otherPortal = Shooting.portalStatic.transform.GetChild(i).gameObject;
+                    otherPortal = PortalGun.portalsStatic.transform.GetChild(i).gameObject;
                 }
 
-                else if (tag == "Orange" && Shooting.portalStatic.transform.GetChild(i).tag == "Blue")
+                else if (tag == "2" && PortalGun.portalsStatic.transform.GetChild(i).tag == "1")
                 {
-                    otherPortal = Shooting.portalStatic.transform.GetChild(i).gameObject;
-
+                    otherPortal = PortalGun.portalsStatic.transform.GetChild(i).gameObject;
                 }
             }
 
             if (otherPortal)
             {
                 other.gameObject.transform.parent.transform.position = otherPortal.transform.position;
+                PortalGun.tp = false;
+                StartCoroutine(TPCoolDown());
             }
         }
+    }
+
+    IEnumerator TPCoolDown()
+    {
+        yield return new WaitForSeconds(tpCoolDown);
+        PortalGun.tp = true;
     }
 }

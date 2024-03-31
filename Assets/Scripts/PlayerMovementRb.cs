@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class PlayerMovementRb : MonoBehaviour
 {
-    public PlayerMovementRb instance;
-
     [Header("Movement")]
     public float moveSpeed;
 
     public float groundDrag;
 
+    [Header("Jumping Variables")]
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
-    bool readyToJump;
+    //bool readyToJump;
+    [Range(0f, 100f)]
+    [SerializeField] float jumpVelocity;
+    float fallMultiplier = 2.5f;
+    float lowJumpMultiplier = 2f;
+
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -38,9 +42,7 @@ public class PlayerMovementRb : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        readyToJump = true;
-
-        instance = this;
+        //readyToJump = true;
     }
 
     // Update is called once per frame
@@ -77,13 +79,26 @@ public class PlayerMovementRb : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // When to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && grounded)
         {
-            readyToJump = false;
+            //readyToJump = false;
 
-            Jump();
+            //Jump();
 
-            Invoke(nameof(ResetJump), jumpCooldown);
+            //Invoke(nameof(ResetJump), jumpCooldown);
+
+            // Better Jump
+            rb.velocity = Vector3.up * jumpVelocity;
+
+            // Better Jump Control
+            if (rb.velocity.y < 0)
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+            else if (rb.velocity.y > 0 && Input.GetButton("Jump"))
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
         }
     }
 
@@ -119,14 +134,23 @@ public class PlayerMovementRb : MonoBehaviour
 
     void Jump()
     {
-        // Reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        // Old jump
+        //// Reset y velocity
+        //rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        //rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        
+        //if (Input.GetButtonDown("Jump"))
+        //{
+            
+        //}
+
+        
     }
 
     void ResetJump()
     {
-        readyToJump = true;
+        //readyToJump = true;
     }
 }

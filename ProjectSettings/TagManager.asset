@@ -8,6 +8,8 @@ TagManager:
   - Orange
   - Objective
   - Camera
+  - 1
+  - 2
   layers:
   - Default
   - TransparentFX
