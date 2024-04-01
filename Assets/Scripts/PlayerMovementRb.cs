@@ -65,6 +65,8 @@ public class PlayerMovementRb : MonoBehaviour
         {
             rb.drag = 0;
         }
+
+        
         
     }
 
