@@ -17,14 +17,19 @@ public class RoomThree : MonoBehaviour
     [Tooltip("A list containing the spawnpoints of the orange portal")]
     [SerializeField] List<Transform> orangeSpawnPoints;
 
+    // Room & portal control variables
     bool roomActive = false;
     bool portalEnabled = false;
-    //float portalHoldTime = 3f;
-    //float portalDisableTime = .15f;
     float time;
     bool checkPointOne = true;
     bool checkPointTwo = true;
     bool checkPointThree = true;
+    AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = portalBlue.GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -74,6 +79,9 @@ public class RoomThree : MonoBehaviour
                 // Enable portals
                 EnableDisablePortal();
 
+                // Play audio
+                portalBlue.GetComponent<AudioSource>().PlayOneShot(PortalTeleport.portalClips[1]);
+
                 // Disable the movement portion
                 checkPointOne = false;
             }
@@ -91,6 +99,9 @@ public class RoomThree : MonoBehaviour
                     // Enable portals
                     EnableDisablePortal();
 
+                    // Play audio
+                    portalBlue.GetComponent<AudioSource>().PlayOneShot(PortalTeleport.portalClips[1]);
+
                     // Disable the movement portion
                     checkPointTwo = false;
                 }
@@ -107,6 +118,9 @@ public class RoomThree : MonoBehaviour
 
                         // Enable portals
                         EnableDisablePortal();
+
+                        // Play audio
+                        portalBlue.GetComponent<AudioSource>().PlayOneShot(PortalTeleport.portalClips[1]);
 
                         // Disable the movement portion
                         checkPointThree = false;

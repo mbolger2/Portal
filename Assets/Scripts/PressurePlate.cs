@@ -15,12 +15,16 @@ public class PressurePlate : MonoBehaviour
     bool plateIsActive;
     Vector3 motion;
 
+    AudioSource audioSource;
+
     void Start()
     {
-        motion = new Vector3(0f, 1f, 0f) * Time.deltaTime;
+        motion = new Vector3(0f, .5f, 0f) * Time.deltaTime;
         plateIsActive = false;
         doorStartingY = door.transform.position.y;
         plateStartingY = plate.transform.position.y;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -28,12 +32,22 @@ public class PressurePlate : MonoBehaviour
         if (!plateIsActive)
         {
             plate.GetComponent<MeshRenderer>().material = unLitButton;
+            
             MovePlateUp();
         }
         else
         {
             plate.GetComponent<MeshRenderer>().material = litButton;
+            
             MovePlateDown();
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("Objective"))
+        {
+            audioSource.Play();
         }
     }
 
@@ -41,6 +55,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.CompareTag("Objective") || other.CompareTag("Player"))
         {
+            //audioSource.PlayOneShot(audioSource.clip, 1f);
             plateIsActive = true;
         }
     }
@@ -49,6 +64,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.CompareTag("Objective") || other.CompareTag("Player"))
         {
+            //audioSource.PlayOneShot(audioSource.clip, 1f);
             plateIsActive = false;
         }
     }
